@@ -51,6 +51,11 @@ class GratitudesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to gratitude_url(@gratitude)
   end
 
+  test "should not update gratitude without content" do
+    patch gratitude_url(@gratitude), params: { gratitude: { content: "", entry_date: @gratitude.entry_date } }
+    assert_response :unprocessable_entity
+  end
+
   test "should destroy gratitude" do
     assert_difference("Gratitude.count", -1) do
       delete gratitude_url(@gratitude)
