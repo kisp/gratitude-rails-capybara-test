@@ -1,0 +1,26 @@
+<%= form_with(model: gratitude, class: "needs-validation") do |form| %>
+  <% if gratitude.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <h5 class="alert-heading"><%= pluralize(gratitude.errors.count, "error") %> prohibited this gratitude from being saved:</h5>
+      <ul class="mb-0">
+        <% gratitude.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :content, class: "form-label" %>
+    <%= form.text_area :content, class: "form-control", rows: 4, placeholder: "What are you grateful for today?" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :entry_date, class: "form-label" %>
+    <%= form.date_field :entry_date, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>

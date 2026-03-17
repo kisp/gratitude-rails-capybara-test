@@ -1,0 +1,31 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1>My Gratitudes</h1>
+  <%= link_to "New Gratitude", new_gratitude_path, class: "btn btn-primary" %>
+</div>
+
+<% if @gratitudes.empty? %>
+  <div class="text-center py-5">
+    <h4 class="text-muted">No gratitudes yet</h4>
+    <p class="text-muted">Start by adding something you are grateful for!</p>
+  </div>
+<% else %>
+  <div id="gratitudes" class="row row-cols-1 row-cols-md-2 g-4">
+    <% @gratitudes.each do |gratitude| %>
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title"><%= gratitude.content %></h5>
+            <p class="card-text text-muted">
+              <small><%= gratitude.entry_date.strftime("%B %d, %Y") %></small>
+            </p>
+          </div>
+          <div class="card-footer bg-transparent border-top-0">
+            <%= link_to "View", gratitude, class: "btn btn-sm btn-outline-primary me-1" %>
+            <%= link_to "Edit", edit_gratitude_path(gratitude), class: "btn btn-sm btn-outline-secondary me-1" %>
+            <%= button_to "Delete", gratitude, method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Are you sure?" } } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
