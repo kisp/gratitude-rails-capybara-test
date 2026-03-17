@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.2.3"
+ruby ">= 3.2"
 
 gem "sqlite3", "~> 1.7", ">= 1.7.3"
 
