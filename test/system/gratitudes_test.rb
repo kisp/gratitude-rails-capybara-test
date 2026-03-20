@@ -71,4 +71,37 @@ class GratitudesTest < ApplicationSystemTestCase
     click_on "Gratitude Journal"
     assert_selector "h1", text: "My Gratitudes"
   end
+
+  test "should show gratitude with content and formatted date" do
+    visit gratitude_url(@gratitude)
+    assert_text @gratitude.content
+    assert_text @gratitude.entry_date.strftime("%B %d, %Y")
+  end
+
+  test "should display empty state when no gratitudes exist" do
+    Gratitude.delete_all
+    visit gratitudes_url
+    assert_text "No gratitudes yet"
+    assert_text "Start by adding something you are grateful for!"
+  end
+
+  test "should not update gratitude without content" do
+    visit edit_gratitude_url(@gratitude)
+    fill_in "Content", with: ""
+    click_on "Update Gratitude"
+    assert_text "prohibited this gratitude from being saved"
+    assert_text "Content can't be blank"
+  end
+
+  test "should navigate from index to show page via View link" do
+    visit gratitudes_url
+    click_on "View", match: :first
+    assert_text @gratitude.content
+  end
+
+  test "should navigate back from show page to index" do
+    visit gratitude_url(@gratitude)
+    click_on "Back to gratitudes"
+    assert_selector "h1", text: "My Gratitudes"
+  end
 end

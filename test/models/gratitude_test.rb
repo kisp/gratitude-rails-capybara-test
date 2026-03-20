@@ -29,4 +29,10 @@ class GratitudeTest < ActiveSupport::TestCase
     newer = Gratitude.create!(content: "Newer entry", entry_date: Date.today)
     assert_equal newer, Gratitude.first
   end
+
+  test "same entry_date ordered by created_at descending" do
+    first_created = Gratitude.create!(content: "First created", entry_date: Date.today)
+    second_created = Gratitude.create!(content: "Second created", entry_date: Date.today)
+    assert_equal second_created, Gratitude.first
+  end
 end
